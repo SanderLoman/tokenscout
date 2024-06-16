@@ -4,9 +4,10 @@ members = [
 
     "database",
 
-
     "common/logger",
     "common/metrics",
+    "common/jemalloc_utils",
+    "common/task_executor",
 
     "analyzer",
     "analyzer/security",
@@ -21,3 +22,12 @@ resolver = "2"
 edition = "2021"
 
 [workspace.dependencies]
+clap = "4.5.7"
+lazy_static = "1.4.0"
+teloxide = "0.12.2"
+
+# Local dependencies
+database = { path = "database" }
+analyzer = { path = "analyzer" }
+telegram_bot = { path = "telegram-bot" }
+ranker = { path = "ranker" }
