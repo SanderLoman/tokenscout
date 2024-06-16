@@ -1,0 +1,20 @@
+[package]
+name = "jemalloc"
+version = "0.1.0"
+edition.workspace = true
+
+[dependencies]
+jemalloc-ctl = { version = "0.5.4", optional = true }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+jemallocator = { version = "0.5.4", optional = true, features = [
+    "stats",
+    "background_threads",
+] }
+
+[target.'cfg(not(target_os = "linux"))'.dependencies]
+jemallocator = { version = "0.5.4", optional = true, features = ["stats"] }
+
+[features]
+jemalloc = ["jemallocator", "jemalloc-ctl"]
+jemalloc-profiling = ["jemallocator/profiling"]
