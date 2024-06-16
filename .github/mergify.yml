@@ -6,13 +6,9 @@ queue_rules:
       queue_conditions:
           - base=stable
           - head=unstable
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
       merge_conditions:
           - base=stable
           - head=unstable
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
       commit_message_template: |
           {{ title }} (#{{ number }})
 
@@ -32,14 +28,10 @@ queue_rules:
           - base=unstable
           - head!=unstable
           - head!=stable
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
       merge_conditions:
           - base=unstable
           - head!=unstable
           - head!=stable
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
       commit_message_template: |
           {{ title }} (#{{ number }})
 
@@ -60,15 +52,11 @@ queue_rules:
           - base!=unstable
           - head!=stable
           - head!=unstable
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
       merge_conditions:
           - base!=stable
           - base!=unstable
           - head!=stable
           - head!=unstable
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
       commit_message_template: |
           {{ title }} (#{{ number }})
 
@@ -85,8 +73,6 @@ pull_request_rules:
       conditions:
           - base=stable
           - head=unstable
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
       actions:
           queue:
               name: stable
@@ -97,8 +83,6 @@ pull_request_rules:
           - base=unstable
           - head!=unstable
           - head!=stable
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
       actions:
           queue:
               name: unstable
@@ -110,8 +94,6 @@ pull_request_rules:
           - base!=unstable
           - head!=stable
           - head!=unstable
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
       actions:
           queue:
               name: feature
