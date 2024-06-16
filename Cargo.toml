@@ -1,5 +1,20 @@
 [workspace]
-members = ["database", "tokenscout", "database"]
+members = [
+    "tokenscout",
+
+    "database",
+
+
+    "common/logger",
+    "common/metrics",
+
+    "analyzer",
+    "analyzer/security",
+
+    "telegram-bot",
+
+    "ranker",
+]
 resolver = "2"
 
 [workspace.package]
