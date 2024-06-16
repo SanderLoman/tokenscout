@@ -1,100 +1,115 @@
 queue_rules:
-    - name: stable
-      batch_size: 8
-      batch_max_wait_time: 60 s
-      checks_timeout: 3600 s
-      queue_conditions:
-          - base=stable
-          - head=unstable
-      merge_conditions:
-          - base=stable
-          - head=unstable
-      commit_message_template: |
-          {{ title }} (#{{ number }})
+  - name: stable
+    batch_size: 8
+    batch_max_wait_time: 60 s
+    checks_timeout: 3600 s
+    queue_conditions:
+      - base=stable
+      - head=unstable
+    merge_conditions:
+      - base=stable
+      - head=unstable
+    commit_message_template: |
+      {{ title }} (#{{ number }})
 
-          {% for commit in commits %}
-          * {{ commit.commit_message }}
-          {% endfor %}
+      {% for commit in commits %}
+      * {{ commit.message }}
+      {% endfor %}
 
-          {% for commit in commits %}
-          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
-          {% endfor %}
+      {% set unique_authors = {} %}
+      {% for commit in commits %}
+      {% set unique_authors = unique_authors.update({commit.author: commit.author_email}) %}
+      {% endfor %}
+      
+      {% for author, email in unique_authors.items() %}
+      Co-Authored-By: {{ author }} <{{ email }}>
+      {% endfor %}
 
-    - name: unstable
-      batch_size: 8
-      batch_max_wait_time: 60 s
-      checks_timeout: 3600 s
-      queue_conditions:
-          - base=unstable
-          - head!=unstable
-          - head!=stable
-      merge_conditions:
-          - base=unstable
-          - head!=unstable
-          - head!=stable
-      commit_message_template: |
-          {{ title }} (#{{ number }})
+  - name: unstable
+    batch_size: 8
+    batch_max_wait_time: 60 s
+    checks_timeout: 3600 s
+    queue_conditions:
+      - base=unstable
+      - head!=unstable
+      - head!=stable
+    merge_conditions:
+      - base=unstable
+      - head!=unstable
+      - head!=stable
+    commit_message_template: |
+      {{ title }} (#{{ number }})
 
-          {% for commit in commits %}
-          * {{ commit.commit_message }}
-          {% endfor %}
+      {% for commit in commits %}
+      * {{ commit.message }}
+      {% endfor %}
 
-          {% for commit in commits %}
-          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
-          {% endfor %}
+      {% set unique_authors = {} %}
+      {% for commit in commits %}
+      {% set unique_authors = unique_authors.update({commit.author: commit.author_email}) %}
+      {% endfor %}
+      
+      {% for author, email in unique_authors.items() %}
+      Co-Authored-By: {{ author }} <{{ email }}>
+      {% endfor %}
 
-    - name: feature
-      batch_size: 8
-      batch_max_wait_time: 60 s
-      checks_timeout: 3600 s
-      queue_conditions:
-          - base!=stable
-          - base!=unstable
-          - head!=stable
-          - head!=unstable
-      merge_conditions:
-          - base!=stable
-          - base!=unstable
-          - head!=stable
-          - head!=unstable
-      commit_message_template: |
-          {{ title }} (#{{ number }})
+  - name: feature
+    batch_size: 8
+    batch_max_wait_time: 60 s
+    checks_timeout: 3600 s
+    queue_conditions:
+      - base!=stable
+      - base!=unstable
+      - head!=stable
+      - head!=unstable
+    merge_conditions:
+      - base!=stable
+      - base!=unstable
+      - head!=stable
+      - head!=unstable
+    commit_message_template: |
+      {{ title }} (#{{ number }})
 
-          {% for commit in commits %}
-          * {{ commit.commit_message }}
-          {% endfor %}
+      {% for commit in commits %}
+      * {{ commit.message }}
+      {% endfor %}
 
-          {% for commit in commits %}
-          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
-          {% endfor %}
+      {% set unique_authors = {} %}
+      {% for commit in commits %}
+      {% set unique_authors = unique_authors.update({commit.author: commit.author_email}) %}
+      {% endfor %}
+      
+      {% for author, email in unique_authors.items() %}
+      Co-Authored-By: {{ author }} <{{ email }}>
+      {% endfor %}
 
 pull_request_rules:
-    - name: merge into stable from unstable
-      conditions:
-          - base=stable
-          - head=unstable
-      actions:
-          queue:
-              name: stable
-              merge_method: merge
+  - name: merge into stable from unstable
+    conditions:
+      - base=stable
+      - head=unstable
+    actions:
+      queue:
+        name: stable
+        merge_method: merge
 
-    - name: merge into unstable from any other branch (excluding stable)
-      conditions:
-          - base=unstable
-          - head!=unstable
-          - head!=stable
-      actions:
-          queue:
-              name: unstable
-              merge_method: squash
+  - name: merge into unstable from any other branch (excluding stable)
+    conditions:
+      - base=unstable
+      - head!=unstable
+      - head!=stable
+    actions:
+      queue:
+        name: unstable
+        merge_method: squash
 
-    - name: merge any branch into any other branch (excluding merges to/from stable or unstable)
-      conditions:
-          - base!=stable
-          - base!=unstable
-          - head!=stable
-          - head!=unstable
-      actions:
-          queue:
-              name: feature
-              merge_method: squash
+  - name: merge any branch into any other branch (excluding merges to/from stable or unstable)
+    conditions:
+      - base!=stable
+      - base!=unstable
+      - head!=stable
+      - head!=unstable
+    actions:
+      queue:
+        name: feature
+        merge_method: squash
