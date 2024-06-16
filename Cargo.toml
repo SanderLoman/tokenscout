@@ -1,6 +1,23 @@
-[package]
-name = "tokenscout"
-version = "0.1.0"
+[workspace]
+members = [
+    "tokenscout",
+
+    "database",
+
+
+    "common/logger",
+    "common/metrics",
+
+    "analyzer",
+    "analyzer/security",
+
+    "telegram-bot",
+
+    "ranker",
+]
+resolver = "2"
+
+[workspace.package]
 edition = "2021"
 
-[dependencies]
+[workspace.dependencies]
