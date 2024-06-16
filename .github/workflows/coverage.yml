@@ -1,0 +1,55 @@
+name: coverage
+
+on:
+    push:
+        branches: ["unstable", "stable"]
+    pull_request:
+        branches: ["unstable", "stable"]
+
+env:
+    CARGO_TERM_COLOR: always
+
+jobs:
+    coverage:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Rust
+              uses: actions-rs/toolchain@v1
+              with:
+                  toolchain: stable
+                  override: true
+
+            - name: Cache cargo and cargo-tarpaulin
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      ~/.cargo/bin
+                      ~/.cargo/registry/index
+                      ~/.cargo/registry/cache
+                      ~/.cargo/git/db
+                  key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+            - name: Check if cargo-tarpaulin is installed
+              run: |
+                  if cargo tarpaulin --version; then
+                    echo "cargo-tarpaulin already installed"
+                  else
+                    cargo install cargo-tarpaulin
+                  fi
+
+            - name: Run tests with coverage
+              run: cargo tarpaulin --out Xml --output-dir ./target/tarpaulin
+
+            - name: Upload coverage to Codecov
+              uses: codecov/codecov-action@v4.0.1
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  slug: SanderLoman/tokenscout
+                  files: ./target/tarpaulin/cobertura.xml
+                  flags: unittests
+                  name: codecov-umbrella
+                  fail_ci_if_error: true
+                  verbose: true
