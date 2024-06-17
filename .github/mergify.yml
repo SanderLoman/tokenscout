@@ -16,15 +16,6 @@ queue_rules:
           * {{ commit.message }}
           {% endfor %}
 
-          {% set unique_authors = {} %}
-          {% for commit in commits %}
-          {% set unique_authors = unique_authors.update({commit.author: commit.author_email}) %}
-          {% endfor %}
-
-          {% for author, email in unique_authors.items() %}
-          Co-Authored-By: {{ author }} <{{ email }}>
-          {% endfor %}
-
     - name: unstable
       batch_size: 8
       batch_max_wait_time: 60 s
@@ -42,15 +33,6 @@ queue_rules:
 
           {% for commit in commits %}
           * {{ commit.message }}
-          {% endfor %}
-
-          {% set unique_authors = {} %}
-          {% for commit in commits %}
-          {% set unique_authors = unique_authors.update({commit.author: commit.author_email}) %}
-          {% endfor %}
-
-          {% for author, email in unique_authors.items() %}
-          Co-Authored-By: {{ author }} <{{ email }}>
           {% endfor %}
 
     - name: feature
@@ -72,15 +54,6 @@ queue_rules:
 
           {% for commit in commits %}
           * {{ commit.message }}
-          {% endfor %}
-
-          {% set unique_authors = {} %}
-          {% for commit in commits %}
-          {% set unique_authors = unique_authors.update({commit.author: commit.author_email}) %}
-          {% endfor %}
-
-          {% for author, email in unique_authors.items() %}
-          Co-Authored-By: {{ author }} <{{ email }}>
           {% endfor %}
 
 pull_request_rules:
