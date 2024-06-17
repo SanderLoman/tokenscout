@@ -16,8 +16,8 @@ queue_rules:
           * {{ commit.commit_message}}
           {% endfor %}
 
-          {% for authors in author %}
-          Co-Authored-By: {{ authors }} <{{ authors.email }}>
+          {% for commit in commits %}
+          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
           {% endfor %}
 
     - name: unstable
@@ -39,8 +39,8 @@ queue_rules:
           * {{ commit.commit_message}}
           {% endfor %}
 
-          {% for authors in author %}
-          Co-Authored-By: {{ authors }} <{{ authors.email }}>
+          {% for commit in commits %}
+          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
           {% endfor %}
 
     - name: feature
@@ -64,8 +64,8 @@ queue_rules:
           * {{ commit.commit_message}}
           {% endfor %}
 
-          {% for authors in author %}
-          Co-Authored-By: {{ authors }} <{{ authors.email }}>
+          {% for commit in commits %}
+          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
           {% endfor %}
 
 pull_request_rules:
