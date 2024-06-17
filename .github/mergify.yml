@@ -13,7 +13,7 @@ queue_rules:
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.message }}
+          * {{ commit.commit_message }}
           {% endfor %}
 
     - name: unstable
@@ -32,7 +32,7 @@ queue_rules:
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.message }}
+          * {{ commit.commit_message }}
           {% endfor %}
 
     - name: feature
@@ -53,7 +53,7 @@ queue_rules:
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.message }}
+          * {{ commit.commit_message }}
           {% endfor %}
 
 pull_request_rules:
