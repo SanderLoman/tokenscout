@@ -10,3 +10,11 @@ queue_rules:
           {% for commit in commits %}
           * {{ commit.commit_message }}
           {% endfor %}
+
+pull_request_rules:
+    - name: rebase unstable branch
+      conditions:
+          - base=unstable
+      actions:
+          rebase:
+              autosquash: true
