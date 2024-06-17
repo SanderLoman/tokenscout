@@ -7,7 +7,7 @@ endif
 PROFILE ?= release
 
 run:
-	cargo run --features "$(FEATURES)"
+	cargo run --features "$(FEATURES)" --release
 
 build:
 	cargo build --features "$(FEATURES)"
