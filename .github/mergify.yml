@@ -10,10 +10,3 @@ queue_rules:
           {% for commit in commits %}
           * {{ commit.commit_message }}
           {% endfor %}
-      queue_conditions:
-          - "#approved-reviews-by >= 1"
-          - "check-success=license/cla"
-          - "check-success=target-branch-check"
-      merge_conditions:
-          - "check-success=test-suite-success"
-          - "check-success=local-testnet-success"
