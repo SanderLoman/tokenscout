@@ -13,7 +13,11 @@ queue_rules:
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.message }}
+          * {{ commit.commit_message}}
+          {% endfor %}
+
+          {% for commit in commits %}
+          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
           {% endfor %}
 
     - name: unstable
@@ -32,7 +36,11 @@ queue_rules:
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.message }}
+          * {{ commit.commit_message}}
+          {% endfor %}
+
+          {% for commit in commits %}
+          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
           {% endfor %}
 
     - name: feature
@@ -53,7 +61,11 @@ queue_rules:
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.message }}
+          * {{ commit.commit_message}}
+          {% endfor %}
+
+          {% for commit in commits %}
+          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
           {% endfor %}
 
 pull_request_rules:
