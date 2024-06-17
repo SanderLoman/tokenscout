@@ -13,7 +13,7 @@ queue_rules:
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.message }}
+          * {{ commit.commit_message}}
           {% endfor %}
 
           {% for authors in author %}
@@ -36,7 +36,7 @@ queue_rules:
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.message }}
+          * {{ commit.commit_message}}
           {% endfor %}
 
           {% for authors in author %}
@@ -61,7 +61,7 @@ queue_rules:
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.message }}
+          * {{ commit.commit_message}}
           {% endfor %}
 
           {% for authors in author %}
