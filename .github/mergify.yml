@@ -17,7 +17,7 @@ queue_rules:
           {% endfor %}
 
           {% for authors in author %}
-          Co-Authored-By: {{ authors.name }} <{{ authors.email }}>
+          Co-Authored-By: {{ authors }} <{{ authors.email }}>
           {% endfor %}
 
     - name: unstable
@@ -40,7 +40,7 @@ queue_rules:
           {% endfor %}
 
           {% for authors in author %}
-          Co-Authored-By: {{ authors.name }} <{{ authors.email }}>
+          Co-Authored-By: {{ authors }} <{{ authors.email }}>
           {% endfor %}
 
     - name: feature
