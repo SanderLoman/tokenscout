@@ -16,6 +16,10 @@ queue_rules:
           * {{ commit.message }}
           {% endfor %}
 
+          {% for authors in author %}
+          Co-Authored-By: {{ authors.name }} <{{ authors.email }}>
+          {% endfor %}
+
     - name: unstable
       batch_size: 8
       batch_max_wait_time: 60 s
@@ -33,6 +37,10 @@ queue_rules:
 
           {% for commit in commits %}
           * {{ commit.message }}
+          {% endfor %}
+
+          {% for authors in author %}
+          Co-Authored-By: {{ authors.name }} <{{ authors.email }}>
           {% endfor %}
 
     - name: feature
@@ -54,6 +62,10 @@ queue_rules:
 
           {% for commit in commits %}
           * {{ commit.message }}
+          {% endfor %}
+
+          {% for authors in author %}
+          Co-Authored-By: {{ authors.name }} <{{ authors.email }}>
           {% endfor %}
 
 pull_request_rules:
