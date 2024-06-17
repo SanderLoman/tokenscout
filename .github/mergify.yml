@@ -12,9 +12,8 @@ queue_rules:
           {% endfor %}
 
 pull_request_rules:
-    - name: rebase unstable branch
+    - name: default
       conditions:
           - base=unstable
       actions:
           rebase:
-              autosquash: true
