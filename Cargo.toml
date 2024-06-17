@@ -5,7 +5,6 @@ members = [
     "database",
 
     "common/logger",
-    "common/metrics",
     "common/jemalloc_utils",
     "common/task_executor",
 
