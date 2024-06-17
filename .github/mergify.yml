@@ -1,100 +1,19 @@
 queue_rules:
-    - name: stable
+    - name: default
       batch_size: 8
       batch_max_wait_time: 60 s
-      checks_timeout: 3600 s
-      queue_conditions:
-          - base=stable
-          - head=unstable
-      merge_conditions:
-          - base=stable
-          - head=unstable
+      checks_timeout: 10800 s
+      merge_method: squash
       commit_message_template: |
           {{ title }} (#{{ number }})
 
           {% for commit in commits %}
-          * {{ commit.commit_message}}
+          * {{ commit.commit_message }}
           {% endfor %}
-
-          {% for commit in commits %}
-          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
-          {% endfor %}
-
-    - name: unstable
-      batch_size: 8
-      batch_max_wait_time: 60 s
-      checks_timeout: 3600 s
       queue_conditions:
-          - base=unstable
-          - head!=unstable
-          - head!=stable
+          - "#approved-reviews-by >= 1"
+          - "check-success=license/cla"
+          - "check-success=target-branch-check"
       merge_conditions:
-          - base=unstable
-          - head!=unstable
-          - head!=stable
-      commit_message_template: |
-          {{ title }} (#{{ number }})
-
-          {% for commit in commits %}
-          * {{ commit.commit_message}}
-          {% endfor %}
-
-          {% for commit in commits %}
-          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
-          {% endfor %}
-
-    - name: feature
-      batch_size: 8
-      batch_max_wait_time: 60 s
-      checks_timeout: 3600 s
-      queue_conditions:
-          - base!=stable
-          - base!=unstable
-          - head!=stable
-          - head!=unstable
-      merge_conditions:
-          - base!=stable
-          - base!=unstable
-          - head!=stable
-          - head!=unstable
-      commit_message_template: |
-          {{ title }} (#{{ number }})
-
-          {% for commit in commits %}
-          * {{ commit.commit_message}}
-          {% endfor %}
-
-          {% for commit in commits %}
-          Co-Authored-By: {{ commit.author }} <{{ commit.email_author }}>
-          {% endfor %}
-
-pull_request_rules:
-    - name: merge into stable from unstable
-      conditions:
-          - base=stable
-          - head=unstable
-      actions:
-          queue:
-              name: stable
-              merge_method: merge
-
-    - name: merge into unstable from any other branch (excluding stable)
-      conditions:
-          - base=unstable
-          - head!=unstable
-          - head!=stable
-      actions:
-          queue:
-              name: unstable
-              merge_method: squash
-
-    - name: merge any branch into any other branch (excluding merges to/from stable or unstable)
-      conditions:
-          - base!=stable
-          - base!=unstable
-          - head!=stable
-          - head!=unstable
-      actions:
-          queue:
-              name: feature
-              merge_method: squash
+          - "check-success=test-suite-success"
+          - "check-success=local-testnet-success"
