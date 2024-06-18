@@ -10,7 +10,7 @@ pub const VERSION: &str = git_version!(
         "--abbrev=7",
         "--match=thiswillnevermatchlol"
     ],
-    prefix = "Lighthouse/v0.1.0-",
+    prefix = "tokenscout/v0.1.0-",
     fallback = "tokenscout/v0.1.0"
 );
 

@@ -29,11 +29,25 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 .long("verbosity")
                 .short('v')
                 .help("Sets the level of verbosity")
-                .action(ArgAction::Set)
-                .default_value("4")
+                .action(ArgAction::Count)
                 .global(true)
                 .display_order(0),
         );
+
+    let matches = matches.get_matches();
+
+    let verbosity = matches.get_count("verbosity");
+    let levels = parse_verbosity(verbosity.into());
+
+    let logger = create_logger(levels);
+    let logger = Arc::new(logger);
+
+    info!(logger, "Starting tokenscout"; "version" => VERSION);
+    warn!(logger, "This is a warning message");
+    error!(logger, "This is an error message");
+    crit!(logger, "This is a critical message");
+    debug!(logger, "This is a debug message");
+    trace!(logger, "This is a trace message");
 
     Ok(())
 }
