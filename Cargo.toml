@@ -41,3 +41,7 @@ analyzer = { path = "analyzer" }
 telegram-bot = { path = "telegram-bot" }
 ranker = { path = "ranker" }
 tokenscout_version = { path = "common/tokenscout_version" }
+logger = { path = "common/logger" }
+jemalloc_utils = { path = "common/jemalloc_utils" }
+task_executor = { path = "common/task_executor" }
+tokenscout_metrics = { path = "common/tokenscout_metrics" }

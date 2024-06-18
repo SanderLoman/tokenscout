@@ -14,3 +14,9 @@ telegram-bot = { workspace = true }
 ranker = { workspace = true }
 tokenscout_version = { workspace = true }
 async-trait = { workspace = true }
+logger = { workspace = true }
+slog = { workspace = true }
+jemalloc_utils = { workspace = true }
+
+[features]
+jemalloc = ["jemalloc_utils/jemalloc"]

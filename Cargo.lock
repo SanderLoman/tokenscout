@@ -1996,14 +1996,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 
 [[package]]
-name = "jemalloc"
-version = "0.1.0"
-dependencies = [
- "jemalloc-ctl",
- "jemallocator",
-]
-
-[[package]]
 name = "jemalloc-ctl"
 version = "0.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2022,6 +2014,14 @@ checksum = "ac6c1946e1cea1788cbfde01c993b52a10e2da07f4bac608228d1bed20bfebf2"
 dependencies = [
  "cc",
  "libc",
+]
+
+[[package]]
+name = "jemalloc_utils"
+version = "0.1.0"
+dependencies = [
+ "jemalloc-ctl",
+ "jemallocator",
 ]
 
 [[package]]
@@ -3905,7 +3905,10 @@ dependencies = [
  "database",
  "dotenv",
  "ethers",
+ "jemalloc_utils",
+ "logger",
  "ranker",
+ "slog",
  "telegram-bot",
  "tokenscout_version",
  "tokio",

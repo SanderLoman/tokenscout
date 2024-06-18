@@ -1,24 +1,66 @@
-use slog::{o, Drain, Logger};
-use slog_async::Async;
-use slog_term::{CompactFormat, TermDecorator};
-use sloggers::types::Severity;
+use slog::{o, Drain, Level, Logger, Record};
 
-pub fn setup_logger(verbosity: u64) -> Logger {
-    let severity = match verbosity {
-        0 => Severity::Info,
-        1 => Severity::Warning,
-        2 => Severity::Error,
-        3 => Severity::Critical,
-        4 => Severity::Debug,
-        5 => Severity::Trace,
-        _ => Severity::Info,
-    };
+// A custom Drain filter that allows logging only for specific log levels.
+struct RangeLevelFilter<D> {
+    levels: Vec<Level>, // List of log levels to allow
+    drain: D,           // The underlying Drain
+}
 
-    let decorator = TermDecorator::new().build();
-    let drain = CompactFormat::new(decorator).build().fuse();
-    let drain = Async::new(drain).build().fuse();
+// Implement the Drain trait for RangeLevelFilter
+impl<D> Drain for RangeLevelFilter<D>
+where
+    D: Drain<Ok = ()>,
+{
+    type Ok = ();
+    type Err = D::Err;
 
-    let logger = Logger::root(drain, o!("severity" => format!("{:?}", severity)));
+    // Log the record if its level is in the allowed list; otherwise, do nothing.
+    fn log(&self, record: &Record, values: &slog::OwnedKVList) -> Result<Self::Ok, Self::Err> {
+        if self.levels.contains(&record.level()) {
+            self.drain.log(record, values)?;
+            Ok(())
+        } else {
+            Ok(())
+        }
+    }
+}
 
-    logger
+// Parse the verbosity level and return a list of log levels to allow.
+pub fn parse_verbosity(verbosity: u64) -> Vec<Level> {
+    match verbosity {
+        1 => vec![Level::Info],
+        2 => vec![Level::Info, Level::Warning],
+        3 => vec![Level::Info, Level::Warning, Level::Error],
+        4 => vec![Level::Info, Level::Warning, Level::Error, Level::Critical],
+        5 => vec![
+            Level::Info,
+            Level::Warning,
+            Level::Error,
+            Level::Critical,
+            Level::Debug,
+        ],
+        6 => vec![
+            Level::Info,
+            Level::Warning,
+            Level::Error,
+            Level::Critical,
+            Level::Debug,
+            Level::Trace,
+        ],
+        _ => vec![Level::Info, Level::Warning, Level::Error, Level::Critical],
+    }
+}
+
+// Create and return a Logger configured with the given log levels.
+pub fn create_logger(levels: Vec<Level>) -> Logger {
+    // Create a Drain for stdout
+    let decorator = slog_term::TermDecorator::new().build();
+    let drain = slog_term::FullFormat::new(decorator).build().fuse();
+    let drain = slog_async::Async::new(drain).build().fuse();
+
+    // Wrap the Drain in a RangeLevelFilter
+    let drain = RangeLevelFilter { levels, drain };
+
+    // Create and return the root Logger
+    Logger::root(drain.fuse(), o!())
 }
