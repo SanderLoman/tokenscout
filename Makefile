@@ -6,8 +6,13 @@ endif
 
 PROFILE ?= release
 
+install:
+	cargo install --path tokenscout --force --locked \
+		--features "$(FEATURES)" \
+		--profile "$(PROFILE)"
+
 run:
-	cargo run --features "$(FEATURES)"
+	cargo run --features "$(FEATURES)" --release
 
 build:
 	cargo build --features "$(FEATURES)"
