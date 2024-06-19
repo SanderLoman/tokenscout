@@ -1,12 +1,12 @@
-use slog::{o, Drain, Level, Logger, Record};
+use slog::{o, Drain, FnValue, Level, Logger, Record};
+use slog_async;
+use slog_term::{self, FullFormat, TermDecorator};
 
-// A custom Drain filter that allows logging only for specific log levels.
 struct RangeLevelFilter<D> {
-    levels: Vec<Level>, // List of log levels to allow
-    drain: D,           // The underlying Drain
+    levels: Vec<Level>,
+    drain: D,
 }
 
-// Implement the Drain trait for RangeLevelFilter
 impl<D> Drain for RangeLevelFilter<D>
 where
     D: Drain<Ok = ()>,
@@ -14,7 +14,6 @@ where
     type Ok = ();
     type Err = D::Err;
 
-    // Log the record if its level is in the allowed list; otherwise, do nothing.
     fn log(&self, record: &Record, values: &slog::OwnedKVList) -> Result<Self::Ok, Self::Err> {
         if self.levels.contains(&record.level()) {
             self.drain.log(record, values)?;
@@ -25,7 +24,6 @@ where
     }
 }
 
-// Parse the verbosity level and return a list of log levels to allow.
 pub fn parse_verbosity(verbosity: u64) -> Vec<Level> {
     match verbosity {
         1 => vec![Level::Info],
@@ -51,16 +49,19 @@ pub fn parse_verbosity(verbosity: u64) -> Vec<Level> {
     }
 }
 
-// Create and return a Logger configured with the given log levels.
 pub fn create_logger(levels: Vec<Level>) -> Logger {
-    // Create a Drain for stdout
-    let decorator = slog_term::TermDecorator::new().build();
-    let drain = slog_term::FullFormat::new(decorator).build().fuse();
+    let decorator = TermDecorator::new().build();
+    let drain = FullFormat::new(decorator)
+        .use_custom_timestamp(slog_term::timestamp_local)
+        .build()
+        .fuse();
     let drain = slog_async::Async::new(drain).build().fuse();
+    let drain = RangeLevelFilter { levels, drain }.fuse();
 
-    // Wrap the Drain in a RangeLevelFilter
-    let drain = RangeLevelFilter { levels, drain };
-
-    // Create and return the root Logger
-    Logger::root(drain.fuse(), o!())
+    Logger::root(
+        drain,
+        o!(
+            "location" => FnValue(move |info| format!("{}::{}::{}", info.file(), info.module(), info.line()))
+        ),
+    )
 }

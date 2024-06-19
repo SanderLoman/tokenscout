@@ -34,6 +34,7 @@ sloggers = "2.2.0"
 slog-term = "2.9.1"
 slog-async = "2.8.0"
 async-trait = "0.1.80"
+chrono = "0.4.38"
 
 # Local dependencies
 database = { path = "database" }

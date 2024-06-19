@@ -8,3 +8,4 @@ slog = { workspace = true }
 sloggers = { workspace = true }
 slog-term = { workspace = true }
 slog-async = { workspace = true }
+chrono = { workspace = true }
