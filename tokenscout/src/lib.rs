@@ -1,17 +1,14 @@
+pub mod cli;
+pub mod config;
 pub mod importer;
 pub mod networking;
 
-impl tokenscout {
-    pub fn new() -> Self {
-        tokenscout {}
-    }
+use clap::{Arg, ArgAction, Command};
+use slog::{crit, debug, error, info, trace, warn};
+
+impl TokenscoutConfig {
+    pub fn new() {}
 }
 
-trait Tokenscout {
-    fn new() -> Self;
-
-    fn start(&self) -> Result<(), Box<dyn std::error::Error>>;
-}
-
-#[derive(Debug, Default, Clone)]
-pub struct tokenscout {}
+#[derive(Debug, Clone)]
+pub struct TokenscoutConfig {}
