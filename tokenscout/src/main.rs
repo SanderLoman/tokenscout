@@ -1,5 +1,5 @@
 use clap::{Arg, ArgAction, Command};
-use logger::{init_logger, parse_verbosity};
+use logging::{init_logger, parse_verbosity};
 use slog::{crit, debug, error, info, trace, warn};
 use tokenscout_version::VERSION;
 
