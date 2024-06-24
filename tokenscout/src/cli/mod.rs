@@ -6,7 +6,7 @@ use slog::{crit, debug, error, info, trace, warn};
 use tokenscout_version::VERSION;
 
 pub struct TokenscoutCli {
-    pub verbosity: u64,
+    pub verbosity: u8,
     pub chains: Vec<String>,
     pub telegram_channels: Vec<String>,
     pub custom_endpoint: Option<Vec<String>>,
