@@ -1,0 +1,11 @@
+[package]
+name = "logging"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+slog.workspace = true
+sloggers.workspace = true
+slog-term.workspace = true
+slog-async.workspace = true
+chrono.workspace = true
