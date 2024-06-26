@@ -4,7 +4,7 @@ members = [
 
     "database",
 
-    "common/logger",
+    "common/logging",
     "common/jemalloc_utils",
     "common/task_executor",
     "common/tokenscout_metrics",
@@ -29,7 +29,7 @@ teloxide = "0.12.2"
 tokio = { version = "1.38.0", features = ["full"] }
 ethers = { version = "2.0.14", features = ["ws"] }
 dotenv = "0.15.0"
-slog = "2.7.0"
+slog = { version = "2.7.0", features = ["max_level_trace"] }
 sloggers = "2.2.0"
 slog-term = "2.9.1"
 slog-async = "2.8.0"
@@ -44,7 +44,7 @@ analyzer = { path = "analyzer" }
 telegram-bot = { path = "telegram-bot" }
 ranker = { path = "ranker" }
 tokenscout_version = { path = "common/tokenscout_version" }
-logger = { path = "common/logger" }
+logging = { path = "common/logging" }
 jemalloc_utils = { path = "common/jemalloc_utils" }
 task_executor = { path = "common/task_executor" }
 tokenscout_metrics = { path = "common/tokenscout_metrics" }
