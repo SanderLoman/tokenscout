@@ -1,6 +1,6 @@
+use std::sync::Arc;
+
 use clap::{Arg, ArgAction, Command};
-use logging::{init_logger, parse_verbosity};
-use slog::{crit, debug, error, info, trace, warn};
 use tokenscout_version::VERSION;
 
 #[tokio::main]
@@ -55,14 +55,4 @@ async fn main() {
         .get_matches();
 
     let verbosity = matches.get_count("verbosity");
-    let levels = parse_verbosity(verbosity);
-
-    let logger = init_logger(levels);
-
-    info!(logger, "Starting tokenscout"; "version" => VERSION);
-    warn!(logger, "This is a warning message");
-    error!(logger, "This is an error message");
-    crit!(logger, "This is a critical message");
-    debug!(logger, "This is a debug message");
-    trace!(logger, "This is a trace message");
 }

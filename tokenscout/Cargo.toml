@@ -15,7 +15,6 @@ ranker.workspace = true
 tokenscout_version.workspace = true
 async-trait.workspace = true
 logging.workspace = true
-slog.workspace = true
 jemalloc_utils.workspace = true
 
 [features]

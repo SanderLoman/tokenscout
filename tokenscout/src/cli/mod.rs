@@ -1,8 +1,4 @@
-use slog::*;
-
 use clap::{Arg, ArgAction, Command};
-use logging::parse_verbosity;
-use slog::{crit, debug, error, info, trace, warn};
 use tokenscout_version::VERSION;
 
 pub struct TokenscoutCli {
@@ -10,7 +6,7 @@ pub struct TokenscoutCli {
     pub chains: Vec<String>,
     pub telegram_channels: Vec<String>,
     pub custom_endpoint: Option<Vec<String>>,
-    pub logger: Logger,
+    // pub logger: Logger,
 }
 
 impl TokenscoutCli {
@@ -69,12 +65,8 @@ impl TokenscoutCli {
             telegram_channels: vec![],
             custom_endpoint: None,
             verbosity: 4,
-            logger: Logger::root(slog::Discard, o!()),
+            // logger: Logger::root(slog::Discard, o!()),
         }
-    }
-
-    fn get_verbosity(&self) -> Vec<Level> {
-        parse_verbosity(self.verbosity)
     }
 
     fn get_chains(&self) -> Vec<String> {
