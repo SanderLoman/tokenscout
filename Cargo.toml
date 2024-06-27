@@ -1,8 +1,7 @@
 [workspace]
 members = [
-    "tokenscout",
-
-    "database",
+    "analyzer",
+    "analyzer/security",
 
     "common/logging",
     "common/jemalloc_utils",
@@ -10,12 +9,12 @@ members = [
     "common/tokenscout_metrics",
     "common/tokenscout_version",
 
-    "analyzer",
-    "analyzer/security",
-
-    "telegram-bot",
+    "database",
 
     "ranker",
+
+    "tokenscout",
+    "telegram-bot",
 ]
 resolver = "2"
 
@@ -29,14 +28,13 @@ teloxide = "0.12.2"
 tokio = { version = "1.38.0", features = ["full"] }
 ethers = { version = "2.0.14", features = ["ws"] }
 dotenv = "0.15.0"
-slog = { version = "2.7.0", features = ["max_level_trace"] }
-sloggers = "2.2.0"
-slog-term = "2.9.1"
-slog-async = "2.8.0"
 async-trait = "0.1.80"
 chrono = "0.4.38"
 git-version = "0.3.9"
 target_info = "0.1.0"
+tracing = "0.1.40"
+tracing-appender = "0.2.3"
+eyre = "0.6.12"
 
 # Local dependencies
 database = { path = "database" }
