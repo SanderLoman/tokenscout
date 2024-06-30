@@ -1,58 +1,12 @@
 use std::sync::Arc;
 
 use clap::{Arg, ArgAction, Command};
+use logging::crit;
+use logging::{init_logger, LoggerConfig};
+use tokenscout::cli::TokenscoutCli;
 use tokenscout_version::VERSION;
 
-#[tokio::main]
-async fn main() {
-    let matches = Command::new("tokenscout")
-        .version(VERSION)
-        .author("SanderLoman <sanderfeitsma13@gmail.com>")
-        .next_line_help(true)
-        .term_width(80)
-        .disable_help_flag(true)
-        .about("tokenscout is a tool for finding profitable tokens.")
-        .display_order(0)
-        .arg(
-            Arg::new("verbosity")
-                .long("verbosity")
-                .short('v')
-                .help("Sets the level of verbosity")
-                .action(ArgAction::Count)
-                .global(true)
-                .display_order(0),
-        )
-        .arg(
-            Arg::new("chains")
-                .long("chain")
-                .short('c')
-                .help("Tracks desired chains")
-                .action(ArgAction::Set)
-                .use_value_delimiter(true)
-                .global(true)
-                .display_order(0),
-        )
-        .arg(
-            Arg::new("custom-url")
-                .long("custom-url")
-                .short('u')
-                .help("Specifies a custom node URL for specific chains")
-                .action(ArgAction::Set)
-                .use_value_delimiter(true)
-                .value_names(&["CHAIN", "URL"])
-                .display_order(0),
-        )
-        .arg(
-            Arg::new("telegram-channels")
-                .long("telegram-channels")
-                .short('t')
-                .help("Outputs to specified Telegram channels")
-                .action(ArgAction::Set)
-                .use_value_delimiter(true)
-                .global(true)
-                .display_order(0),
-        )
-        .get_matches();
+use tracing::{debug, error, info, trace, warn};
 
-    let verbosity = matches.get_count("verbosity");
-}
+#[tokio::main]
+async fn main() {}
