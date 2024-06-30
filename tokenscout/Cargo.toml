@@ -16,6 +16,7 @@ tokenscout_version.workspace = true
 async-trait.workspace = true
 logging.workspace = true
 jemalloc_utils.workspace = true
+tracing.workspace = true
 
 [features]
 jemalloc = ["jemalloc_utils/jemalloc"]
