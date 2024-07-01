@@ -3,7 +3,7 @@
 # Set the directory to be logged relative to the script location and the output file
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_DIR="$SCRIPT_DIR/../../"
-OUTPUT_FILE="$SCRIPT_DIR/../../workspace_log.txt"
+OUTPUT_FILE="$SCRIPT_DIR/../../workspace_log.md"
 
 # Function to log directory structure
 log_directory() {
