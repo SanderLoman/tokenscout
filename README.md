@@ -29,3 +29,80 @@ make
 ## License
 
 TokenScout is released under the Apache License 2.0, See the [LICENSE](./LICENSE) file for more details.
+
+tokenscout/
+├── src/
+│   ├── core/
+│   │   ├── token_tracker.rs
+│   │   ├── whale_identifier.rs
+│   │   ├── profitability_analyzer.rs
+│   │   ├── malicious_detector.rs
+│   │   └── transaction_analyzer.rs
+│   ├── blockchain/
+│   │   ├── ethereum.rs
+│   │   ├── binance.rs
+│   │   ├── polygon.rs
+│   │   └── solana.rs
+│   ├── ml/
+│   │   ├── models.rs
+│   │   └── training.rs
+│   ├── api/
+│   │   ├── routes.rs
+│   │   └── handlers.rs
+│   ├── db/
+│   │   ├── schema.rs
+│   │   └── models.rs
+│   ├── security/
+│   │   ├── encryption.rs
+│   │   └── privacy.rs
+│   ├── simulation/
+│   │   ├── framework.rs
+│   │   └── scenarios.rs
+│   └── utils/
+│       ├── config.rs
+│       └── logger.rs
+├── tests/
+│   ├── integration_tests.rs
+│   └── unit_tests/
+│       ├── core_tests.rs
+│       ├── blockchain_tests.rs
+│       └── ml_tests.rs
+├── docs/
+│   ├── api.md
+│   ├── installation.md
+│   └── tutorials/
+│       ├── getting_started.md
+│       └── advanced_usage.md
+├── ui/
+│   ├── web/
+│   │   ├── index.html
+│   │   ├── styles.css
+│   │   └── app.js
+│   └── mobile/
+│       ├── android/
+│       └── ios/
+├── scripts/
+│   ├── setup.sh
+│   └── deploy.sh
+├── Cargo.toml
+├── Cargo.lock
+├── .github/
+│   └── workflows/
+│       ├── build.yml
+│       ├── tests.yml
+│       └── deploy.yml
+├── README.md
+└── LICENSE
+
+<!-- Write down my project structure like the example above -->
+(workspace)
+tokenscout/
+├── .cargp/
+
+
+
+
+│ 
+├──
+└──
+──
