@@ -8,5 +8,7 @@ use tokenscout_version::VERSION;
 
 use tracing::{debug, error, info, trace, warn};
 
+use task_executor::TaskExecutor;
+
 #[tokio::main]
 async fn main() {}

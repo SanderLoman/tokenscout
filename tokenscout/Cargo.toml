@@ -17,6 +17,7 @@ async-trait.workspace = true
 logging.workspace = true
 jemalloc_utils.workspace = true
 tracing.workspace = true
+task_executor.workspace = true
 
 [features]
 jemalloc = ["jemalloc_utils/jemalloc"]

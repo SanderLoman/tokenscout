@@ -4,13 +4,11 @@
 [![tests](https://github.com/SanderLoman/tokenscout/actions/workflows/tests.yml/badge.svg)](https://github.com/SanderLoman/tokenscout/actions/workflows/tests.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/SanderLoman/tokenscout?token=JT1850HR9J)](https://app.codecov.io/gh/SanderLoman/tokenscout)
 
-TokenScout is a tool that helps you to find the best tokens to invest in.
-
-TokenScout is a sophisticated bot built in idiomatic Rust, designed to track all deployed tokens on the Ethereum blockchain. It identifies tokens linked to whale wallets and assesses their potential profitability. Additionally, it ensures the safety of investments by simulating token transactions to detect malicious behavior.
+TokenScout is a sophisticated bot built in Rust, designed to track all deployed tokens on diverse blockchains. It identifies tokens linked to whale wallets and assesses their potential profitability. Additionally, it ensures the safety of investments by simulating token transactions to detect malicious behavior.
 
 ## Features
 
-1. **Token Tracking**: Monitors all newly deployed tokens on the Ethereum blockchain.
+1. **Token Tracking**: Monitors all newly deployed tokens on blockchains.
 2. **Whale Wallet Identification**: Walks through all branches of connected wallets to identify whale wallets associated with the token deployer.
 3. **Profitability Analysis**: Assesses the potential profitability of tokens backed by whale wallets based on historical data and transaction patterns.
 4. **Malicious Token Detection**: Simulates buying and selling the maximum amount of tokens to detect Salmonella tokens.
